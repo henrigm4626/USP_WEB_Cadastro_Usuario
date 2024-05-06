@@ -1,0 +1,55 @@
+/*
+
+Desenvolvimento Web e Mobile
+
+Desafio JS - Site de cadastro com validação de campos
+
+Henrique Marques
+
+*/
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    border: 1px solid #CCC;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+.container h2 {
+    text-align: center;
+}
+
+.container meter {
+    width: 100%;
+}
+
+/* Cor para a senha forte */
+#passStrengthMeter::-webkit-meter-optimum-value {
+    background-color: green;
+}
+
+/* Cor para a senha moderada */
+#passStrengthMeter::-webkit-meter-suboptimum-value {
+    background-color: orange;
+}
+
+/* Cor para a senha fraca */
+#passStrengthMeter::-webkit-meter-even-less-good-value {
+    background-color: red;
+}
+
+#inputResult {
+    color: green;
+    text-align: center;
+}
