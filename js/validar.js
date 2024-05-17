@@ -146,7 +146,7 @@ function validarSenha(senha, nome, ano) {
     }
 
     // Invalidando a senha caso contenha o nome ou senha inseridos pelo usuário
-    if (senha.includes(nome) || senha.includes(ano)) {
+    if ((nome && senha.includes(nome)) || (ano && senha.includes(ano))) {
         senhaForca.value = 0;
         return 'Formato de senha inválida';
     }
