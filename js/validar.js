@@ -134,7 +134,7 @@ function validarSenha(senha, nome, ano) {
     // Invalidando a senha caso não tenha entre 6 e 20 caracteres
     if (senha.length < 6 || senha.length > 20) {
         senhaForca.value = 0;
-        return 'Senha inválida';
+        return 'Formato de senha inválida';
     }
     
     // Invalidando a senha caso não contenha pelo menos uma letra, um número e um caractere especial
@@ -142,13 +142,13 @@ function validarSenha(senha, nome, ano) {
         !/(?=.*[0-9])/.test(senha) || 
         !/(?=.*[a-zA-Z])/.test(senha)) {
         senhaForca.value = 0;
-        return 'Senha inválida';
+        return 'Formato de senha inválida';
     }
 
     // Invalidando a senha caso contenha o nome ou senha inseridos pelo usuário
     if (senha.includes(nome) || senha.includes(ano)) {
         senhaForca.value = 0;
-        return 'Senha inválida';
+        return 'Formato de senha inválida';
     }
 
     return 'Senha válida';
@@ -168,7 +168,7 @@ function mostrarForcaSenha() {
     }
 
     const resultadoValidacaoSenha = validarSenha(senha_trim, nome_trim, ano_trim);
-    // Se a senha for inválida, exibir "Senha inválida"
+    // Se a senha for inválida, exibir "Formato de senha inválida"
     if (resultadoValidacaoSenha !== "Senha válida") {
         senhaHelp.textContent = resultadoValidacaoSenha;
         senhaHelp.style.color="red";
