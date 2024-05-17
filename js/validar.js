@@ -249,7 +249,8 @@ function validarForms() {
     if (resultadoValidacaoSenha !== "Senha válida") {
         senhaHelp.textContent = "Formato de senha inválida"; 
         senhaHelp.style.color="red";
-        mensagemSucesso.textContent = ''
+        mensagemSucesso.textContent = "Cadastro inválido";
+        mensagemSucesso.style.color = "red";
         return;
     }
 
