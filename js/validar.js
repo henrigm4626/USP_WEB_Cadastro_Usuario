@@ -56,18 +56,22 @@ além de outras propriedades, o objeto que iniciou o evento, neste caso o objeto
 // Validação do nome
 function validarNome(e){ 
     // Declaração da expressão regular (regex) para definir o formato de um nome válido
-    const regexNome = /^[a-zA-Z]{6,}$/;
+    const regexNome = /^(?!.*[a-z][A-Z])[A-Z][a-z]*(?: [A-Z][a-z]*)*$/;
     
     console.log(e); // impressão em console do objeto evento e
     console.log(e.target.value); // impressão em console do valor do objeto 'nome' que originou o evento   
 
+    const nome = e.target.value.trim();
+
     // Caso o nome seja inválido, muda o conteúdo e o estilo do objeto nomeHelp (elemento HTML com id=inputNameHelp)
-    if (e.target.value.trim().match(regexNome)==null){
+    if (nome.length < 6 || nome.match(regexNome) == null){
         nomeHelp.textContent = "Formato de nome inválido"; 
         nomeHelp.style.color="red";
-        mensagemSucesso.textContent = ''
+        mensagemSucesso.textContent = '';
+        return false;
     } else {
         nomeHelp.textContent = "";
+        return true;
     }       
 }
 
@@ -85,16 +89,20 @@ function validarAno(e){
         anoHelp.textContent = "Ano inválido. Insira um número de 4 dígitos.";
         anoHelp.style.color = "red";
         mensagemSucesso.textContent = '';
+        return false;
     } else if (parseInt(valorAno) > 2022) {
         anoHelp.textContent = "Ano inválido. O ano não pode ser maior que 2022";
         anoHelp.style.color="red";
         mensagemSucesso.textContent = ''
+        return false;
     } else if (parseInt(valorAno) < 1900){
         anoHelp.textContent = "Ano inválido. O ano não pode ser menor que 1900";
         anoHelp.style.color="red";
         mensagemSucesso.textContent = ''
+        return false;
     } else {
         anoHelp.textContent = "";
+        return true;
     }        
 
 }
@@ -111,8 +119,10 @@ function validarEmail(e) {
         emailHelp.textContent = "Formato de email inválido"; 
         emailHelp.style.color="red";
         mensagemSucesso.textContent = ''
+        return false;
     } else {
         emailHelp.textContent = "";
+        return true;
     } 
 
 }
@@ -219,18 +229,31 @@ function validarForms() {
     const senha_trim = senha.value.trim();
     const nome_trim = nome.value.trim();
     const ano_trim = parseInt(ano.value.trim());
+    const email_trim = email.value.trim();
 
+
+    // Validando cada um dos campos
+    const nomeValido = validarNome({ target: { value: nome_trim } });
+    const anoValido = validarAno({ target: { value: ano_trim } });
+    const emailValido = validarEmail({ target: { value: email_trim } });
     const resultadoValidacaoSenha = validarSenha(senha_trim, nome_trim, ano_trim);
+
+    // Mensagem para nomes, anos e emails inválidas
+    if (!nomeValido || !anoValido || !emailValido) {
+        mensagemSucesso.textContent = "Cadastro inválido";
+        mensagemSucesso.style.color = "red";
+        return;
+    }
 
     // Mensagem para senhas inválidas
     if (resultadoValidacaoSenha !== "Senha válida") {
         senhaHelp.textContent = "Formato de senha inválida"; 
         senhaHelp.style.color="red";
-        alert('Insira uma senha válida.');
         mensagemSucesso.textContent = ''
         return;
     }
 
     // Se todos os campos forem válidos, exibir mensagem de sucesso
     mensagemSucesso.textContent = 'Cadastro realizado com sucesso!';
+    mensagemSucesso.style.color = "green";
 }
